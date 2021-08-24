@@ -21,6 +21,7 @@ class CreateMBalanceTable extends Migration
             $table->foreignId('purpose_element_id');
             $table->foreignId('place_element_id');
             $table->date('date');
+            $table->timestamps();
 
             $table->foreign('kind_element_id')
                 ->references('id')

@@ -18,6 +18,7 @@ class CreateMKindElementTable extends Migration
             $table->string('name', 20)->unique();
             $table->string('description', 20);
             $table->string('category_id');
+            $table->timestamps();
 
             $table->foreign('category_id')
                 ->references('id')

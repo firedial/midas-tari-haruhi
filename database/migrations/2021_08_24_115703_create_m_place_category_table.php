@@ -17,6 +17,7 @@ class CreateMPlaceCategoryTable extends Migration
             $table->id();
             $table->string('name', 20)->unique();
             $table->string('description', 20);
+            $table->timestamps();
         });
     }
 
