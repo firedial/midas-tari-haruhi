@@ -25,3 +25,8 @@ Route::get('/tasks/{task}', 'App\Http\Controllers\TaskController@show');
 Route::put('/tasks/{task}', 'App\Http\Controllers\TaskController@update');
 Route::delete('/tasks/{task}', 'App\Http\Controllers\TaskController@destroy');
 
+Route::get('/balances', 'App\Http\Controllers\BalanceController@index');
+Route::post('/balances', 'App\Http\Controllers\BalanceController@store');
+Route::get('/balances/{balance}', 'App\Http\Controllers\BalanceController@show');
+Route::put('/balances/{balance}', 'App\Http\Controllers\BalanceController@update');
+Route::delete('/balances/{balance}', 'App\Http\Controllers\BalanceController@destroy');

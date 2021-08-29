@@ -4,6 +4,10 @@ import TaskListComponent from "./components/TaskListComponent";
 import TaskShowComponent from "./components/TaskShowComponent";
 import TaskCreateComponent from "./components/TaskCreateComponent";
 import TaskEditComponent from "./components/TaskEditComponent";
+import BalanceListComponent from "./components/BalanceListComponent";
+import BalanceCreateComponent from "./components/BalanceCreateComponent";
+import BalanceEditComponent from "./components/BalanceEditComponent";
+import BalanceShowComponent from "./components/BalanceShowComponent";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -37,10 +41,32 @@ const router = new VueRouter({
             props: true
         },
         {
-        path: '/tasks/:taskId/edit',
-        name: 'task.edit',
-        component: TaskEditComponent,
-        props: true
+            path: '/tasks/:taskId/edit',
+            name: 'task.edit',
+            component: TaskEditComponent,
+            props: true
+        },
+        {
+            path: '/balances',
+            name: 'balance.list',
+            component: BalanceListComponent
+        },
+        {
+            path: '/balances/create',
+            name: 'balance.create',
+            component: BalanceCreateComponent
+        },
+        {
+            path: '/balances/:balanceId/edit',
+            name: 'balance.edit',
+            component: BalanceEditComponent,
+            props: true
+        },
+        {
+            path: '/balances/:balanceId',
+            name: 'balance.show',
+            component: BalanceShowComponent,
+            props: true
         },
     ]
 });
