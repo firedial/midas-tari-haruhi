@@ -20,9 +20,9 @@
                     <th scope="row">{{ balance.id }}</th>
                     <td>{{ balance.amount }}</td>
                     <td>{{ balance.item }}</td>
-                    <td>{{ balance.kind_element_id }}</td>
-                    <td>{{ balance.purpose_element_id }}</td>
-                    <td>{{ balance.place_element_id }}</td>
+                    <td>{{ balance.kind_description }}</td>
+                    <td>{{ balance.purpose_description }}</td>
+                    <td>{{ balance.place_description }}</td>
                     <td>{{ balance.date }}</td>
                     <td>
                         <router-link v-bind:to="{name: 'balance.show', params: {balanceId: balance.id }}">
