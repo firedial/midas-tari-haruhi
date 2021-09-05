@@ -30,3 +30,15 @@ Route::post('/balances', 'App\Http\Controllers\BalanceController@store');
 Route::get('/balances/{balance}', 'App\Http\Controllers\BalanceController@show');
 Route::put('/balances/{balance}', 'App\Http\Controllers\BalanceController@update');
 Route::delete('/balances/{balance}', 'App\Http\Controllers\BalanceController@destroy');
+
+Route::get('/move_purpose', 'App\Http\Controllers\MovePurposeController@index');
+Route::post('/move_purpose', 'App\Http\Controllers\MovePurposeController@store');
+Route::get('/move_purpose/{move_purpose}', 'App\Http\Controllers\MovePurposeController@show');
+Route::put('/move_purpose/{move_purpse}', 'App\Http\Controllers\MovePurposeController@update');
+Route::delete('/move_purpose/{move_purpose}', 'App\Http\Controllers\MovePurposeController@destroy');
+
+Route::get('/move_place', 'App\Http\Controllers\MovePlaceController@index');
+Route::post('/move_place', 'App\Http\Controllers\MovePlaceController@store');
+Route::get('/move_place/{move_place}', 'App\Http\Controllers\MovePlaceController@show');
+Route::put('/move_place/{move_place}', 'App\Http\Controllers\MovePlaceController@update');
+Route::delete('/move_place/{move_place}', 'App\Http\Controllers\MovePlaceController@destroy');
