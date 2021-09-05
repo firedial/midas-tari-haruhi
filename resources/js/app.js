@@ -8,6 +8,10 @@ import BalanceListComponent from "./components/BalanceListComponent";
 import BalanceCreateComponent from "./components/BalanceCreateComponent";
 import BalanceEditComponent from "./components/BalanceEditComponent";
 import BalanceShowComponent from "./components/BalanceShowComponent";
+import MoveListComponent from "./components/MoveListComponent";
+import MoveCreateComponent from "./components/MoveCreateComponent";
+import MoveEditComponent from "./components/MoveEditComponent";
+import MoveShowComponent from "./components/MoveShowComponent";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -66,6 +70,30 @@ const router = new VueRouter({
             path: '/balances/:balanceId',
             name: 'balance.show',
             component: BalanceShowComponent,
+            props: true
+        },
+        {
+            path: '/moves/:attributeName',
+            name: 'moves.list',
+            component: MoveListComponent,
+            props: true
+        },
+        {
+            path: '/moves/:attributeName/create',
+            name: 'moves.create',
+            component: MoveCreateComponent,
+            props: true
+        },
+        {
+            path: '/moves/:attributeName/:moveId/edit',
+            name: 'moves.edit',
+            component: MoveEditComponent,
+            props: true
+        },
+        {
+            path: '/moves/:attributeName/:moveId',
+            name: 'moves.show',
+            component: MoveShowComponent,
             props: true
         },
     ]
