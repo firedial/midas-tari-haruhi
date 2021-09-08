@@ -4,11 +4,17 @@
             <nav class="navbar navbar-dark">
                 <span class="navbar-brand mb-0 h1">Vue Laravel SPA</span>
                 <div>
-                    <router-link v-bind:to="{name: 'task.list'}">
-                        <button class="btn btn-success">List</button>
+                    <router-link v-bind:to="{name: 'balance.list'}">
+                        <button class="btn btn-success">Balance List</button>
                     </router-link>
                     <router-link v-bind:to="{name: 'balance.create'}">
-                        <button class="btn btn-success">ADD</button>
+                        <button class="btn btn-success">Balance Add</button>
+                    </router-link>
+                    <router-link v-bind:to="{name: 'move.list', params: {attributeName: 'places'}}">
+                        <button class="btn btn-success">Place Move List</button>
+                    </router-link>
+                    <router-link v-bind:to="{name: 'move.create', params: {attributeName: 'places'}}">
+                        <button class="btn btn-success">Place Move Add</button>
                     </router-link>
                 </div>
             </nav>

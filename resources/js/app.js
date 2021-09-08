@@ -74,25 +74,25 @@ const router = new VueRouter({
         },
         {
             path: '/moves/:attributeName',
-            name: 'moves.list',
+            name: 'move.list',
             component: MoveListComponent,
             props: true
         },
         {
             path: '/moves/:attributeName/create',
-            name: 'moves.create',
+            name: 'move.create',
             component: MoveCreateComponent,
             props: true
         },
         {
             path: '/moves/:attributeName/:moveId/edit',
-            name: 'moves.edit',
+            name: 'move.edit',
             component: MoveEditComponent,
             props: true
         },
         {
             path: '/moves/:attributeName/:moveId',
-            name: 'moves.show',
+            name: 'move.show',
             component: MoveShowComponent,
             props: true
         },

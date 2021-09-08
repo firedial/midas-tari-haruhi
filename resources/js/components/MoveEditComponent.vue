@@ -55,7 +55,7 @@
             submit() {
                 axios.put('/api/moves_' + this.attributeName + '/' + this.moveId, this.move)
                     .then((res) => {
-                        this.$router.push({name: 'moves.list'})
+                        this.$router.push({name: 'move.list'})
                     });
             }
         },

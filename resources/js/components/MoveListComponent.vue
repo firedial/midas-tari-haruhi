@@ -23,12 +23,12 @@
                     <td>{{ move.after_id }}</td>
                     <td>{{ move.date }}</td>
                     <td>
-                        <router-link v-bind:to="{name: 'moves.show', params: {moveId: move.id, attributeName: attributeName}}">
+                        <router-link v-bind:to="{name: 'move.show', params: {moveId: move.id, attributeName: attributeName}}">
                             <button class="btn btn-primary">Show</button>
                         </router-link>
                     </td>
                     <td>
-                        <router-link v-bind:to="{name: 'moves.edit', params: {moveId: move.id, attributeName: attributeName}}">
+                        <router-link v-bind:to="{name: 'move.edit', params: {moveId: move.id, attributeName: attributeName}}">
                             <button class="btn btn-success">Edit</button>
                         </router-link>
                     </td>
