@@ -21,7 +21,7 @@ class BalanceTableSeeder extends Seeder
                 'kind_element_id' => $i,
                 'purpose_element_id' => $i,
                 'place_element_id' => $i,
-                'date' => '2021/8/24',
+                'date' => '2021-08-' . (10 + $i),
             ]);
         }
     }

@@ -15,20 +15,20 @@ class MoveAttributeTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 9; $i++) {
             MovePurpose::create([
                 'amount' => $i * $i,
                 'item' => 'item' . $i,
                 'before_id' => $i,
-                'after_id' => $i,
-                'date' => '2021/8/24',
+                'after_id' => $i + 1,
+                'date' => '2021-08-' . (10 + $i),
             ]);
             MovePlace::create([
                 'amount' => $i * $i,
                 'item' => 'item' . $i,
                 'before_id' => $i,
-                'after_id' => $i,
-                'date' => '2021/8/24',
+                'after_id' => $i + 1,
+                'date' => '2021-08-' . (10 + $i),
             ]);
         }
     }
