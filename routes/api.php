@@ -42,3 +42,5 @@ Route::post('/moves_places', 'App\Http\Controllers\MovePlaceController@store');
 Route::get('/moves_places/{move_place}', 'App\Http\Controllers\MovePlaceController@show');
 Route::put('/moves_places/{move_place}', 'App\Http\Controllers\MovePlaceController@update');
 Route::delete('/moves_places/{move_place}', 'App\Http\Controllers\MovePlaceController@destroy');
+
+Route::get('/sum', 'App\Http\Controllers\SumController@index');
