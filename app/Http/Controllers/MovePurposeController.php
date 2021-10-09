@@ -3,35 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MovePurpose;
+use App\Models\Dao\MoveDao;
 
 class MovePurposeController extends Controller
 {
     public function index()
     {
-        return MovePurpose::all();
+        return MoveDao::getAllMoves('purpose');
     }
 
-    public function show(MovePurpose $movePurpose)
+    public function show(Int $id)
     {
-        return $movePurpose;
+        return MoveDao::getMoveById('purpose', $id);
     }
 
     public function store(Request $request)
     {
-        return MovePurpose::create($request->all());
+        return MoveDao::insertMove('purpose', $request);
     }
 
-    public function update(Request $request, MovePurpose $movePurpose)
+    public function update(Request $request, Int $id)
     {
-        $movePurpose->update($request->all());
-        return $movePurpose;
+        return MoveDao::updateMove('purpose', $request, $id);
     }
 
-    public function destroy(MovePurpose $movePurpose)
+    public function destroy(Int $id)
     {
-        $movePurpose->delete();
-
-        return $movePurpose;
+        return MoveDao::deleteMove($id);
     }
+
 }
