@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class KindElement extends AttributeElement
 {
+    const MOVE_ID = 5;
+
     protected $table = 'm_kind_element';
 }
