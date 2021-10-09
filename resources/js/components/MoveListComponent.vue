@@ -19,8 +19,8 @@
                     <th scope="row">{{ move.id }}</th>
                     <td>{{ move.amount }}</td>
                     <td>{{ move.item }}</td>
-                    <td>{{ move.before_id }}</td>
-                    <td>{{ move.after_id }}</td>
+                    <td>{{ move.before_description }}</td>
+                    <td>{{ move.after_description }}</td>
                     <td>{{ move.date }}</td>
                     <td>
                         <router-link v-bind:to="{name: 'move.show', params: {moveId: move.id, attributeName: attributeName}}">
