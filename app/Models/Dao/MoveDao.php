@@ -22,6 +22,20 @@ class MoveDao
 
     public static function getAllMoves(String $attributeName)
     {
+        $moveAttributeConditionColumn = '';
+        $moveAttributeConditionId = '';
+        if ($attributeName === 'purpose') {
+            $moveAttributeConditionColumn = 'before.place_element_id';
+            $moveAttributeConditionId = PlaceElement::MOVE_ID;
+        } else if ($attributeName === 'place') {
+            $moveAttributeConditionColumn = 'before.purpose_element_id';
+            $moveAttributeConditionId = PurposeElement::MOVE_ID;
+        } else {
+            // ここにはこない想定
+            // exception 吐いたほうがいい
+            // もっと上位で処理しても良さそう
+        }
+
         return DB::table('m_balance as before')
             ->select(
                 'before.id AS id',
@@ -38,6 +52,7 @@ class MoveDao
             ->join('m_' . $attributeName . '_element as after_attribute_element', 'after_attribute_element.id', '=', 'after.' . $attributeName . '_element_id')
             ->where('before.kind_element_id', KindElement::MOVE_ID)
             ->where('before.amount', '>', 0)
+            ->where($moveAttributeConditionColumn, $moveAttributeConditionId)
             ->get();
     }
 
