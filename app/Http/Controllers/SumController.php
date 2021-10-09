@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\KindElement;
 
 class SumController extends Controller
 {
@@ -22,9 +23,31 @@ class SumController extends Controller
         $startDate = $request->input('start_date') ?: '';
         $endDate = $request->input('end_date') ?: '';
 
-        $query =
-            DB::table('m_balance')
-            ->select(
+        $query = DB::table('m_balance');
+
+        $groupByPlace = false;
+        if ($request->input('group_by_place') === 'true') {
+            $groupByPlace = true;
+        }
+
+        $groupByPurpose = false;
+        if ($request->input('group_by_purpose') === 'true') {
+            $groupByPurpose = true;
+        }
+
+        $groupByDate = $request->input('group_by_date');
+        $groupByDateValue = array(null, 'day', 'week', 'month', 'year', 'fiscal_year');
+        if (!in_array($groupByDate, $groupByDateValue, true)) {
+            // 例外処理を投げる
+            return array();
+        }
+
+        if ($groupByDate || $groupByPurpose || $groupByPlace) { 
+            $query->select(
+                DB::raw('SUM(m_balance.amount) as sum')
+            );
+        } else {
+            $query->select(
                 'm_balance.id AS id',
                 'm_balance.amount AS amount',
                 'm_balance.item AS item',
@@ -35,80 +58,38 @@ class SumController extends Controller
                 'm_kind_element.description AS kind_description',
                 'm_purpose_element.description AS purpose_description',
                 'm_place_element.description AS place_description'
-            )
+            );
+        }
+
+        if ($groupByPurpose) {
+            $query->addSelect(
+                'm_balance.purpose_element_id',
+                'm_purpose_element.description AS purpose_description'
+            );
+            $query->groupBy('m_balance.purpose_element_id');
+        }
+        if ($groupByPlace) {
+            $query->addSelect(
+                'm_balance.place_element_id',
+                'm_place_element.description AS place_description'
+            );
+            $query->groupBy('m_balance.place_element_id');
+        }
+        if ($groupByDate) {
+            // グループ化の条件を後で書く
+            $query->addSelect('m_balance.date');
+            $query->groupBy('m_balance.date');
+        }
+
+        $query
             ->join('m_kind_element', 'm_kind_element.id', '=', 'm_balance.kind_element_id')
             ->join('m_purpose_element', 'm_purpose_element.id', '=', 'm_balance.purpose_element_id')
             ->join('m_place_element', 'm_place_element.id', '=', 'm_balance.place_element_id');
 
-        if (!$isMoveIngnore) {
-            $purposeMoveOutQuery =
-                DB::table('m_move_purpose')
-                ->select(
-                    'm_move_purpose.id AS id',
-                    DB::raw('m_move_purpose.amount * (-1) AS amount'),
-                    '予算移送元 AS item',
-                    '0 AS kind_element_id',
-                    'm_move_purpose.before_id AS purpose_element_id',
-                    '0 AS place_element_id',
-                    'm_move_purpose.date AS date',
-                    '- AS kind_description',
-                    'm_purpose_element.description AS purpose_description',
-                    '- AS place_description'
-                )
-                ->join('m_purpose_element', 'm_purpose_element.id', '=', 'm_move_purpose.before_id');
-            $purposeMoveInQuery =
-                DB::table('m_move_purpose')
-                ->select(
-                    'm_move_purpose.id AS id',
-                    'm_move_purpose.amount AS amount',
-                    '予算移送先 AS item',
-                    '0 AS kind_element_id',
-                    'm_move_purpose.after_id AS purpose_element_id',
-                    '0 AS place_element_id',
-                    'm_move_purpose.date AS date',
-                    '- AS kind_description',
-                    'm_purpose_element.description AS purpose_description',
-                    '- AS place_description'
-                )
-                ->join('m_purpose_element', 'm_purpose_element.id', '=', 'm_move_purpose.after_id');
-            $query->unionAll($purposeMoveOutQuery);
-            $query->unionAll($purposeMoveInQuery);
-
-            $placeMoveOutQuery =
-                DB::table('m_move_place')
-                ->select(
-                    'm_move_place.id AS id',
-                    DB::raw('m_move_place.amount * (-1) AS amount'),
-                    '場所移送元 AS item',
-                    '0 AS kind_element_id',
-                    '0 AS purpose_element_id',
-                    'm_move_place.before_id AS place_element_id',
-                    'm_move_place.date AS date',
-                    '- AS kind_description',
-                    '- AS purpose_description',
-                    'm_place_element.description AS place_description'
-                )
-                ->join('m_place_element', 'm_place_element.id', '=', 'm_move_place.before_id');
-            $placeMoveInQuery =
-                DB::table('m_move_place')
-                ->select(
-                    'm_move_place.id AS id',
-                    'm_move_place.amount AS amount',
-                    '場所移送先 AS item',
-                    '0 AS kind_element_id',
-                    '0 AS purpose_element_id',
-                    'm_move_place.after_id AS place_element_id',
-                    'm_move_place.date AS date',
-                    '- AS kind_description',
-                    '- AS purpose_description',
-                    'm_place_element.description AS place_description'
-                )
-                ->join('m_place_element', 'm_place_element.id', '=', 'm_move_place.after_id');
-            $query->unionAll($placeMoveOutQuery);
-            $query->unionAll($placeMoveInQuery);
-
+        if ($isMoveIngnore) {
+            $query->where('kind_element_id', '<>', KindElement::MOVE_ID);
         }
-        
+
         if ($filterKindElements !== array()) {
             $query->whereIn('kind_element_id', $filterKindElements);
         }
@@ -126,7 +107,6 @@ class SumController extends Controller
             $query->whereDate('m_balance.date', '<=', $endDate);
         }
 
-        // return $query->toSql();
         return $query->get();
     }
 
