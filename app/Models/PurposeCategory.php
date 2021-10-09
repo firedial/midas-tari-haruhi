@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PurposeCategory extends AttributeCategory
 {
+    const MOVE_ID = 1;
+
     protected $table = 'm_purpose_category';
 }
