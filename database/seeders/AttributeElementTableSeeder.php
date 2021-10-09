@@ -16,7 +16,23 @@ class AttributeElementTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 10; $i++) {
+        KindElement::create([
+            'name' => 'kind_move_none',
+            'description' => 'kind_e_move_none',
+            'category_id' => 1,
+        ]);
+        PurposeElement::create([
+            'name' => 'purpose_move_none',
+            'description' => 'purpose_e_move_none',
+            'category_id' => 1,
+        ]);
+        PlaceElement::create([
+            'name' => 'place_e_move_none',
+            'description' => 'place_e_move_none',
+            'category_id' => 1,
+        ]);
+
+        for ($i = 2; $i <= 100; $i++) {
             KindElement::create([
                 'name' => 'kind_e_name' . $i,
                 'description' => 'kind_e_description' . $i,

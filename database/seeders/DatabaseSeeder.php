@@ -18,6 +18,5 @@ class DatabaseSeeder extends Seeder
         $this->call(AttributeCategoryTableSeeder::class);
         $this->call(AttributeElementTableSeeder::class);
         $this->call(BalanceTableSeeder::class);
-        $this->call(MoveAttributeTableSeeder::class);
     }
 }
