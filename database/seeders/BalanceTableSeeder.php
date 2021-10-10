@@ -54,7 +54,7 @@ class BalanceTableSeeder extends Seeder
                 'amount' => (-1) * $i * $i * $i,
                 'item' => 'move' . $i,
                 'kind_element_id' => 1,
-                'purpose_element_id' => $i,
+                'purpose_element_id' => $i + 1,
                 'place_element_id' => 1,
                 'date' => '2021-08-' . (10 + $i),
             ]);
