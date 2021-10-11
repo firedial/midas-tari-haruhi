@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Balance;
+use App\Models\KindElement;
 
 class BalanceController extends Controller
 {
@@ -26,6 +27,7 @@ class BalanceController extends Controller
             ->join('m_kind_element', 'm_kind_element.id', '=', 'm_balance.kind_element_id')
             ->join('m_purpose_element', 'm_purpose_element.id', '=', 'm_balance.purpose_element_id')
             ->join('m_place_element', 'm_place_element.id', '=', 'm_balance.place_element_id')
+            ->where('m_balance.kind_element_id', '<>', KindElement::MOVE_ID)
             ->get();
     }
 
