@@ -15,6 +15,21 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <th>+</th>
+                    <td><input type="text" class="col-sm-9 form-control" v-model="newBalance.amount"></td>
+                    <td><input type="text" class="col-sm-9 form-control" v-model="newBalance.item"></td>
+                    <td><input type="text" class="col-sm-9 form-control" v-model="newBalance.kind_element_id"></td>
+                    <td><input type="text" class="col-sm-9 form-control" v-model="newBalance.purpose_element_id"></td>
+                    <td><input type="text" class="col-sm-9 form-control" v-model="newBalance.place_element_id"></td>
+                    <td><input type="text" class="col-sm-9 form-control" v-model="newBalance.date"></td>
+                    <td>
+                        <button class="btn btn-success" v-on:click="addNewBalance()">Add</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" v-on:click="clearNewBalance()">Clear</button>
+                    </td>
+                </tr>
                 <tr v-for="(balance, index) in balances" :key="index">
                     <th scope="row">{{ balance.id }}</th>
                     <td><input type="text" class="col-sm-9 form-control" v-bind:readonly="isReadOnly(balance.id)" v-model="balance.amount"></td>
@@ -43,6 +58,7 @@
         data: function () {
             return {
                 balances: [],
+                newBalance: {},
                 editable: null 
             }
         },
@@ -64,6 +80,18 @@
                     .then((res) => {
                         if (res.status === 200) {
                             this.editable = null;
+                        }
+                    });
+            },
+            clearNewBalance() {
+                this.newBalance = {};
+            },
+            addNewBalance() {
+                axios.post('/api/balances', this.newBalance)
+                    .then((res) => {
+                        if (res.status === 201) {
+                            this.newBalance = {};
+                            this.balances.push(res.data);
                         }
                     });
             },
