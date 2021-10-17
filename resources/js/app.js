@@ -4,7 +4,8 @@ import TaskListComponent from "./components/TaskListComponent";
 import TaskShowComponent from "./components/TaskShowComponent";
 import TaskCreateComponent from "./components/TaskCreateComponent";
 import TaskEditComponent from "./components/TaskEditComponent";
-import BalanceListComponent from "./components/BalanceListComponent";
+// import BalanceListComponent from "./components/BalanceListComponent";
+import BalanceTableComponent from "./components/BalanceTableComponent";
 import BalanceCreateComponent from "./components/BalanceCreateComponent";
 import BalanceEditComponent from "./components/BalanceEditComponent";
 import BalanceShowComponent from "./components/BalanceShowComponent";
@@ -53,7 +54,8 @@ const router = new VueRouter({
         {
             path: '/balances',
             name: 'balance.list',
-            component: BalanceListComponent
+            // component: BalanceListComponent
+            component: BalanceTableComponent
         },
         {
             path: '/balances/create',
