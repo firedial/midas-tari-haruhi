@@ -11,6 +11,7 @@
                     <th scope="col">Place Element</th>
                     <th scope="col">Date</th>
                     <th scope="col">Edit</th>
+                    <th scope="col">Save</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
@@ -25,6 +26,9 @@
                     <td><input type="text" class="col-sm-9 form-control" v-model="newBalance.date"></td>
                     <td>
                         <button class="btn btn-success" v-on:click="addNewBalance()">Add</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" v-on:click="addNewBalance()">Save</button>
                     </td>
                     <td>
                         <button class="btn btn-danger" v-on:click="clearNewBalance()">Clear</button>
@@ -42,10 +46,13 @@
                         <button class="btn btn-success" v-on:click="editBalance(balance.id)">Edit</button>
                     </td>
                     <td v-else>
-                        <button class="btn btn-primary" v-on:click="saveBalance(balance)">Save</button>
+                        <button class="btn btn-success" v-on:click="cancelEditBalance()">Cancel</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger" v-on:click="deleteBalance(balance.id)">Delete</button>
+                        <button class="btn btn-primary" :disabled="isReadOnly(balance.id)" v-on:click="saveBalance(balance)">Save</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" :disabled="isReadOnly(balance.id)" v-on:click="deleteBalance(balance.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -82,6 +89,9 @@
                             this.editable = null;
                         }
                     });
+            },
+            cancelEditBalance() {
+                this.editable = null;
             },
             clearNewBalance() {
                 this.newBalance = {};
