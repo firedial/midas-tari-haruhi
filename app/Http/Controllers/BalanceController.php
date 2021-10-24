@@ -20,9 +20,9 @@ class BalanceController extends Controller
                 'm_balance.purpose_element_id AS purpose_element_id',
                 'm_balance.place_element_id AS place_element_id',
                 'm_balance.date AS date',
-                'm_kind_element.description AS kind_description',
-                'm_purpose_element.description AS purpose_description',
-                'm_place_element.description AS place_description'
+                'm_kind_element.description AS kind_element_description',
+                'm_purpose_element.description AS purpose_element_description',
+                'm_place_element.description AS place_element_description'
             )
             ->join('m_kind_element', 'm_kind_element.id', '=', 'm_balance.kind_element_id')
             ->join('m_purpose_element', 'm_purpose_element.id', '=', 'm_balance.purpose_element_id')

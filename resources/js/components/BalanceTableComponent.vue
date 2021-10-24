@@ -59,7 +59,8 @@
                     <th scope="row">{{ balance.id }}</th>
                     <td><input type="text" class="col-sm-9 form-control" v-bind:readonly="isReadOnly(balance.id)" v-model="balance.amount"></td>
                     <td><input type="text" class="col-sm-9 form-control" v-bind:readonly="isReadOnly(balance.id)" v-model="balance.item"></td>
-                    <td>
+                    <td v-if="isReadOnly(balance.id)"><input type="text" class="col-sm-9 form-control" readonly v-model="balance.kind_element_description"></td>
+                    <td v-else>
                         <select class="form-select form-select-sm" v-bind:disabled="isReadOnly(balance.id)" v-model="balance.kind_element_id">
                             <option value=""></option>
                             <option v-for="kindElement in kindElements" :value="kindElement.id" :key="kindElement.id">
@@ -67,7 +68,8 @@
                             </option>
                         </select>
                     </td>
-                    <td>
+                    <td v-if="isReadOnly(balance.id)"><input type="text" class="col-sm-9 form-control" readonly v-model="balance.purpose_element_description"></td>
+                    <td v-else>
                         <select class="form-select form-select-sm" v-bind:disabled="isReadOnly(balance.id)" v-model="balance.purpose_element_id">
                             <option value=""></option>
                             <option v-for="purposeElement in purposeElements" :value="purposeElement.id" :key="purposeElement.id">
@@ -75,7 +77,8 @@
                             </option>
                         </select>
                     </td>
-                    <td>
+                    <td v-if="isReadOnly(balance.id)"><input type="text" class="col-sm-9 form-control" readonly v-model="balance.place_element_description"></td>
+                    <td v-else>
                         <select class="form-select form-select-sm" v-bind:disabled="isReadOnly(balance.id)" v-model="balance.place_element_id">
                             <option value=""></option>
                             <option v-for="placeElement in placeElements" :value="placeElement.id" :key="placeElement.id">
