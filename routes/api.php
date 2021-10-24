@@ -44,3 +44,5 @@ Route::put('/moves_places/{move_place}', 'App\Http\Controllers\MovePlaceControll
 Route::delete('/moves_places/{move_place}', 'App\Http\Controllers\MovePlaceController@destroy');
 
 Route::get('/sum', 'App\Http\Controllers\SumController@index');
+
+Route::get('/attribute_elements/{element_name}', 'App\Http\Controllers\AttributeElementController@index');
