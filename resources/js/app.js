@@ -9,7 +9,6 @@ import BalanceTableComponent from "./components/BalanceTableComponent";
 import BalanceCreateComponent from "./components/BalanceCreateComponent";
 import BalanceEditComponent from "./components/BalanceEditComponent";
 import BalanceShowComponent from "./components/BalanceShowComponent";
-import MoveOperationComponent from "./components/MoveOperationComponent";
 import MoveListComponent from "./components/MoveListComponent";
 import MoveCreateComponent from "./components/MoveCreateComponent";
 import MoveEditComponent from "./components/MoveEditComponent";
@@ -98,11 +97,6 @@ const router = new VueRouter({
             name: 'move.show',
             component: MoveShowComponent,
             props: true
-        },
-        {
-            path: '/moves',
-            name: 'move.operation',
-            component: MoveOperationComponent
         },
     ]
 });
