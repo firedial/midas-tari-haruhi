@@ -13,6 +13,7 @@ import MoveListComponent from "./components/MoveListComponent";
 import MoveCreateComponent from "./components/MoveCreateComponent";
 import MoveEditComponent from "./components/MoveEditComponent";
 import MoveShowComponent from "./components/MoveShowComponent";
+import AnalyzeComponent from "./components/AnalyzeComponent";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -97,6 +98,11 @@ const router = new VueRouter({
             name: 'move.show',
             component: MoveShowComponent,
             props: true
+        },
+        {
+            path: '/analyze',
+            name: 'analyze',
+            component: AnalyzeComponent
         },
     ]
 });

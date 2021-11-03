@@ -43,6 +43,6 @@ Route::get('/moves_places/{move_place}', 'App\Http\Controllers\MovePlaceControll
 Route::put('/moves_places/{move_place}', 'App\Http\Controllers\MovePlaceController@update');
 Route::delete('/moves_places/{move_place}', 'App\Http\Controllers\MovePlaceController@destroy');
 
-Route::get('/sum', 'App\Http\Controllers\SumController@index');
+Route::get('/analyze/table', 'App\Http\Controllers\AnalyzeController@table');
 
 Route::get('/attribute_elements/{element_name}', 'App\Http\Controllers\AttributeElementController@index');
