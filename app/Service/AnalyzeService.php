@@ -21,12 +21,11 @@ class AnalyzeService
             return $data;
         }
 
-        // @todo 日付を埋める処理が必要
-
-        // dataset を使わない場合はここで処理終了
-        if (is_null($params['dataset'])) {
+        // 合計を取得するだけのとき
+        if ($params['label'] === 'all') {
             return $data;
         }
+        // @todo 日付を埋める処理が必要
 
         $sumData = array();
         foreach ($data as $x) {

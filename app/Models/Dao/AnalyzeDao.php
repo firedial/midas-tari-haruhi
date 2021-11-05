@@ -91,6 +91,11 @@ class AnalyzeDao
                 'm_balance.date as dataset_description'
             );
             $query->groupBy('m_balance.date');
+        } else if ($params['label'] !== 'all' && $params['dataset'] === 'all') {
+            $query->addSelect(
+                '1 as dataset_id',
+                'data as dataset_description'
+            );
         }
 
         if ($params['isMoveIgnore']) {

@@ -47,6 +47,11 @@ class AnalyzeController extends Controller
             return array();
         }
 
+        // 集約使うとき dataset が null なら all を入れておく
+        if (!is_null($params['label']) && is_null($params['dataset'])) {
+            $params['dataset'] = 'all';
+        }
+
         return $params;
     }
 }
