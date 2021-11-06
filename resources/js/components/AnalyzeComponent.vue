@@ -2,18 +2,31 @@
     <div class="container">
         <div>
             search<br />
-            group by attribute: 
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="groupByAttribute" id="groupByKind" value="kind">
-                <label class="form-check-label" for="gorupByKind">kind</label>
+            date
+            <div>
+                start
+                <input type="date" name="startDate" id="startDate" v-model="queries.startDate">
+                end
+                <input type="date" name="endDate" id="endDate" v-model="queries.endDate">
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="groupByAttribute" id="groupByPurpose" value="purpose">
-                <label class="form-check-label" for="gorupByPurpose">purpose</label>
+            
+            <br />
+            label: 
+            <div v-for="canUseLabel in canUseLabels" class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="label" v-bind:id="canUseLabel" v-bind:value="canUseLabel" v-model="queries.label">
+                <label class="form-check-label" v-bind:for="canUseLabel">{{ canUseLabel }}</label>
             </div>
+            <br />
+            datasets: 
+            <div v-for="canUseDatasets in canUseDatasets" class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="dataset" v-bind:id="canUseDatasets" v-bind:value="canUseDatasets" v-model="queries.dataset">
+                <label class="form-check-label" v-bind:for="canUseDatasets">{{ canUseDatasets }}</label>
+            </div>
+            <br />
+            move ignore: 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="groupByAttribute" id="groupByPlace" value="place">
-                <label class="form-check-label" for="gorupByPlace">place</label>
+                <input class="form-check-input" type="checkbox" name="moveIgnore" id="moveIgnore" value="true" v-model="queries.moveIgnore">
+                <label class="form-check-label" for="moveIgnore">ignore</label>
             </div>
             <br />
             data form:
@@ -29,41 +42,20 @@
                 <input class="form-check-input" type="radio" name="dataForm" id="dataFormSum" value="sum">
                 <label class="form-check-label" for="dataFromSum">sum</label>
             </div>
-            <br />
-            move ignore: 
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="moveIgnore" id="moveIgnore" value="true" checked>
-                <label class="form-check-label" for="moveIgnore">ignore</label>
-            </div>
         </div>
-        <table class="table table-hover">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Kind Element</th>
-                    <th scope="col">Purpose Element</th>
-                    <th scope="col">Place Element</th>
-                    <th scope="col">Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(balance, index) in balances" :key="index">
-                    <th scope="row">{{ balance.id }}</th>
-                    <td>{{ balance.amount }}</td>
-                    <td>{{ balance.item }}</td>
-                    <td>{{ balance.kind_element_description }}</td>
-                    <td>{{ balance.purpose_element_description }}</td>
-                    <td>{{ balance.place_element_description }}</td>
-                    <td>{{ balance.date }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <button v-on:click="getChartData">display</button>
+        {{ queries }}
+        {{ queryParam }}
+
+        <my-bar v-bind:chartData="chartData"></my-bar>
+        <balance-table v-if="false" :balances="balances" />
     </div>
 </template>
 
 <script>
+    import MyBar from './BarComponent'
+    import BalanceTable from './commonComponents/BalanceTableComponent'
+
     export default {
         data: function () {
             return {
@@ -71,8 +63,38 @@
                 kindElements: [],
                 purposeElements: [],
                 placeElements: [],
-                newBalance: {},
-                editable: null 
+                chartData: {},
+                canUseLabels: ['none', 'kind', 'purpose', 'place', 'day', 'all'],
+                canUseDatasets: ['none', 'kind', 'purpose', 'place', 'day', 'all'],
+                queries: {
+                    moveIgnore: true,
+                    startDate: '',
+                    endDate: '',
+                    label: 'none',
+                    dataset: 'none'
+                }
+            }
+        },
+        computed: {
+            queryParam: function () {
+                const queries = this.queries;
+                let q = [];
+                if (queries.moveIgnore) {
+                    q.push('move_ignore=true');
+                }
+                if (queries.startDate !== '') {
+                    q.push('startDate=' + queries.startDate);
+                }
+                if (queries.endDate !== '') {
+                    q.push('endDate=' + queries.endDate);
+                }
+                if (queries.label !== 'none') {
+                    q.push('label=' + queries.label);
+                }
+                if (queries.dataset !== 'none') {
+                    q.push('dataset=' + queries.dataset);
+                }
+                return q.join('&');
             }
         },
         methods: {
@@ -99,6 +121,12 @@
                     .then((res) => {
                         this.placeElements = res.data;
                     });
+            },
+            getChartData() {
+                axios.get('/api/analyze/table?' + this.queryParam)
+                    .then((res) => {
+                        this.chartData = res.data;
+                    });
             }
         },
         mounted() {
@@ -106,6 +134,10 @@
             this.getKindElements();
             this.getPurposeElements();
             this.getPlaceElements();
+        },
+        components: {
+            'my-bar': MyBar,
+            'balance-table': BalanceTable
         }
     }
 </script>
