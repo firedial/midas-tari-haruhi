@@ -21,10 +21,6 @@ class AnalyzeService
             return $data;
         }
 
-        // 合計を取得するだけのとき
-        if ($params['label'] === 'all') {
-            return $data;
-        }
         // @todo 日付を埋める処理が必要
 
         $sumData = array();
