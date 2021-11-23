@@ -7,7 +7,7 @@ export default {
   mixins: [reactiveProp],
   props: ['hoge'],
   mounted () {
-    this.renderChart(this.chartData, {scales: {x: { stacked: true }, y: { stacke: true }}})
+    this.renderChart(this.chartData, {scales: {x: { stacked: true }, y: { stacke: true } }})
   }
 }
 </script>

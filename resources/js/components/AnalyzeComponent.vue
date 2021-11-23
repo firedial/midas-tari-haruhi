@@ -31,24 +31,20 @@
             <br />
             data form:
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="dataForm" id="dataFormTable" value="table" checked>
+                <input class="form-check-input" type="radio" name="dataForm" id="dataFormTable" value="table" v-model="dataForm">
                 <label class="form-check-label" for="dataFromTable">table</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="dataForm" id="dataFormGraph" value="graph">
+                <input class="form-check-input" type="radio" name="dataForm" id="dataFormGraph" value="graph" v-model="dataForm">
                 <label class="form-check-label" for="dataFromGraph">graph</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="dataForm" id="dataFormSum" value="sum">
-                <label class="form-check-label" for="dataFromSum">sum</label>
             </div>
         </div>
         <button v-on:click="getChartData">display</button>
         {{ queries }}
         {{ queryParam }}
 
-        <my-bar v-bind:chartData="chartData"></my-bar>
-        <balance-table v-if="false" :balances="balances" />
+        <my-bar v-if="isAggregationGraph" v-bind:chartData="chartData"></my-bar>
+        <balance-table v-if="isBalanceTable" :balances="balances" />
     </div>
 </template>
 
@@ -65,7 +61,8 @@
                 placeElements: [],
                 chartData: {},
                 canUseLabels: ['none', 'kind', 'purpose', 'place', 'day', 'all'],
-                canUseDatasets: ['none', 'kind', 'purpose', 'place', 'day', 'all'],
+                canUseDatasets: ['none', 'kind', 'purpose', 'place', 'day'],
+                dataForm: 'table',
                 queries: {
                     moveIgnore: true,
                     startDate: '',
@@ -83,10 +80,10 @@
                     q.push('move_ignore=true');
                 }
                 if (queries.startDate !== '') {
-                    q.push('startDate=' + queries.startDate);
+                    q.push('start_date=' + queries.startDate);
                 }
                 if (queries.endDate !== '') {
-                    q.push('endDate=' + queries.endDate);
+                    q.push('end_date=' + queries.endDate);
                 }
                 if (queries.label !== 'none') {
                     q.push('label=' + queries.label);
@@ -95,6 +92,15 @@
                     q.push('dataset=' + queries.dataset);
                 }
                 return q.join('&');
+            },
+            isBalanceTable: function () {
+                return this.label === 'none';
+            },
+            isAggregationTable: function () {
+                return this.label !== 'none' && this.dataForm === 'table';
+            },
+            isAggregationGraph: function () {
+                return this.label !== 'none' && this.dataForm === 'graph';
             }
         },
         methods: {
