@@ -42,7 +42,7 @@
         },
         methods: {
             getBalances() {
-                axios.get('/api/balances')
+                axios.get('/api/balances?limit=20&orderby=desc')
                     .then((res) => {
                         this.balances = res.data;
                     });

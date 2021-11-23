@@ -31,6 +31,10 @@ class BalanceController extends Controller
         if (is_numeric($request->input('limit'))) {
             $query->limit($request->input('limit'));
         }
+        // @todo クエリそのまま入れているので後で修正する
+        if (!is_null($request->input('orderby'))) {
+            $query->orderby('m_balance.id', $request->input('orderby'));
+        }
 
         return $query->get();
     }
