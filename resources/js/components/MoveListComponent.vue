@@ -49,6 +49,11 @@
                     });
             }
         },
+        watch: {
+            attributeName: function () {
+                this.getMoves();
+            }
+        },
         mounted() {
             this.getMoves();
         }
