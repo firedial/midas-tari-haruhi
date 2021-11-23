@@ -9,9 +9,9 @@ use App\Models\KindElement;
 
 class BalanceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return DB::table('m_balance')
+        $query = DB::table('m_balance')
             ->select(
                 'm_balance.id AS id',
                 'm_balance.amount AS amount',
@@ -27,8 +27,12 @@ class BalanceController extends Controller
             ->join('m_kind_element', 'm_kind_element.id', '=', 'm_balance.kind_element_id')
             ->join('m_purpose_element', 'm_purpose_element.id', '=', 'm_balance.purpose_element_id')
             ->join('m_place_element', 'm_place_element.id', '=', 'm_balance.place_element_id')
-            ->where('m_balance.kind_element_id', '<>', KindElement::MOVE_ID)
-            ->get();
+            ->where('m_balance.kind_element_id', '<>', KindElement::MOVE_ID);
+        if (is_numeric($request->input('limit'))) {
+            $query->limit($request->input('limit'));
+        }
+
+        return $query->get();
     }
 
     public function show(Balance $balance)
