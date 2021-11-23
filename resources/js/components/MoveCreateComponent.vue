@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <form v-on:submit.prevent="submit">
                     <div class="form-group row">
                         <label for="amount" class="col-sm-3 col-form-label">Amount</label>
@@ -13,15 +13,25 @@
                     </div>
                     <div class="form-group row">
                         <label for="kind_element" class="col-sm-3 col-form-label">Before Id</label>
-                        <input type="text" class="col-sm-9 form-control" id="before_id" v-model="move.before_id">
+                        <select class="form-select form-select-sm" v-model="move.before_id">
+                            <option value=""></option>
+                            <option v-for="element in elements" :value="element.id" :key="element.id">
+                                {{ element.description }}
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group row">
                         <label for="purpose_element" class="col-sm-3 col-form-label">After Id</label>
-                        <input type="text" class="col-sm-9 form-control" id="after_if" v-model="move.after_id">
+                        <select class="form-select form-select-sm" v-model="move.after_id">
+                            <option value=""></option>
+                            <option v-for="element in elements" :value="element.id" :key="element.id">
+                                {{ element.description }}
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group row">
                         <label for="date" class="col-sm-3 col-form-label">Date</label>
-                        <input type="text" class="col-sm-9 form-control" id="date" v-model="move.date">
+                        <input type="date" class="col-sm-9 form-control" id="date" v-model="move.date">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -37,7 +47,8 @@
         },
         data: function () {
             return {
-                move: {}
+                move: {},
+                elements: []
             }
         },
         methods: {
@@ -46,7 +57,21 @@
                     .then((res) => {
                         this.$router.push({name: 'move.list'});
                     });
+            },
+            getElements() {
+                let elementPath = 'place_element';
+                if (this.attributeName === 'purposes') {
+                    elementPath = 'purpose_element';
+                }
+
+                axios.get('/api/attribute_elements/' + elementPath)
+                    .then((res) => {
+                        this.elements = res.data;
+                    });
             }
+        },
+        mounted() {
+            this.getElements();
         }
     }
 </script>

@@ -9,9 +9,7 @@
                     <th scope="col">Before Id</th>
                     <th scope="col">After Id</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Show</th>
                     <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,17 +21,9 @@
                     <td>{{ move.after_description }}</td>
                     <td>{{ move.date }}</td>
                     <td>
-                        <router-link v-bind:to="{name: 'move.show', params: {moveId: move.id, attributeName: attributeName}}">
-                            <button class="btn btn-primary">Show</button>
-                        </router-link>
-                    </td>
-                    <td>
                         <router-link v-bind:to="{name: 'move.edit', params: {moveId: move.id, attributeName: attributeName}}">
-                            <button class="btn btn-success">Edit</button>
+                            <button class="btn btn-primary">Edit</button>
                         </router-link>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" v-on:click="deleteMove(move.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -56,12 +46,6 @@
                 axios.get('/api/moves_' + this.attributeName)
                     .then((res) => {
                         this.moves = res.data;
-                    });
-            },
-            deleteMove(id) {
-                axios.delete('/api/moves_' + this.attributeName + '/' + id)
-                    .then((res) => {
-                        this.getMoves();
                     });
             }
         },
