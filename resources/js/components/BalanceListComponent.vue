@@ -10,9 +10,7 @@
                     <th scope="col">Purpose Element</th>
                     <th scope="col">Place Element</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Show</th>
                     <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,22 +18,14 @@
                     <th scope="row">{{ balance.id }}</th>
                     <td>{{ balance.amount }}</td>
                     <td>{{ balance.item }}</td>
-                    <td>{{ balance.kind_description }}</td>
-                    <td>{{ balance.purpose_description }}</td>
-                    <td>{{ balance.place_description }}</td>
+                    <td>{{ balance.kind_element_description }}</td>
+                    <td>{{ balance.purpose_element_description }}</td>
+                    <td>{{ balance.place_element_description }}</td>
                     <td>{{ balance.date }}</td>
                     <td>
-                        <router-link v-bind:to="{name: 'balance.show', params: {balanceId: balance.id }}">
-                            <button class="btn btn-primary">Show</button>
-                        </router-link>
-                    </td>
-                    <td>
                         <router-link v-bind:to="{name: 'balance.edit', params: {balanceId: balance.id }}">
-                            <button class="btn btn-success">Edit</button>
+                            <button class="btn btn-primary">Edit</button>
                         </router-link>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" v-on:click="deleteBalance(balance.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -55,12 +45,6 @@
                 axios.get('/api/balances')
                     .then((res) => {
                         this.balances = res.data;
-                    });
-            },
-            deleteBalance(id) {
-                axios.delete('/api/balances/' + id)
-                    .then((res) => {
-                        this.getBalances();
                     });
             }
         },

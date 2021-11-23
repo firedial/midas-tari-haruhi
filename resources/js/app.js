@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router';
 import HeaderComponent from "./components/HeaderComponent";
-// import BalanceListComponent from "./components/BalanceListComponent";
-import BalanceTableComponent from "./components/BalanceTableComponent";
+import BalanceListComponent from "./components/BalanceListComponent";
+// import BalanceTableComponent from "./components/BalanceTableComponent";
 import BalanceCreateComponent from "./components/BalanceCreateComponent";
 import BalanceEditComponent from "./components/BalanceEditComponent";
 import BalanceShowComponent from "./components/BalanceShowComponent";
@@ -29,8 +29,8 @@ const router = new VueRouter({
         {
             path: '/balances',
             name: 'balance.list',
-            // component: BalanceListComponent
-            component: BalanceTableComponent
+            component: BalanceListComponent
+            // component: BalanceTableComponent
         },
         {
             path: '/balances/create',
