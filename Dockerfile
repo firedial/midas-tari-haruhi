@@ -13,3 +13,5 @@ RUN  a2enmod rewrite
 COPY package*.json ./
 RUN npm install
 
+RUN chown -R www-data /var/www/html
+
