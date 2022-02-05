@@ -44,20 +44,20 @@ class AnalyzeDao
                 'm_balance.kind_element_id as label_id',
                 'm_kind_element.description AS label_description'
             );
-            $query->groupBy('m_balance.kind_element_id');
+            $query->groupBy('m_balance.kind_element_id', 'm_kind_element.description');
 
         } else if ($params['label'] === 'purpose') {
             $query->addSelect(
                 'm_balance.purpose_element_id as label_id',
                 'm_purpose_element.description AS label_description'
             );
-            $query->groupBy('m_balance.purpose_element_id');
+            $query->groupBy('m_balance.purpose_element_id', 'm_purpose_element.description');
         } else if ($params['label'] === 'place') {
             $query->addSelect(
                 'm_balance.place_element_id as label_id',
                 'm_place_element.description AS label_description'
             );
-            $query->groupBy('m_balance.place_element_id');
+            $query->groupBy('m_balance.place_element_id', 'm_place_element.description');
         } else if ($params['label'] === 'day') {
             $query->addSelect(
                 'm_balance.date as label_id',
@@ -77,20 +77,20 @@ class AnalyzeDao
                 'm_balance.kind_element_id as dataset_id',
                 'm_kind_element.description AS dataset_description'
             );
-            $query->groupBy('m_balance.kind_element_id');
+            $query->groupBy('m_balance.kind_element_id', 'm_kind_element.description');
 
         } else if ($params['dataset'] === 'purpose') {
             $query->addSelect(
                 'm_balance.purpose_element_id as dataset_id',
                 'm_purpose_element.description AS dataset_description'
             );
-            $query->groupBy('m_balance.purpose_element_id');
+            $query->groupBy('m_balance.purpose_element_id', 'm_purpose_element.description');
         } else if ($params['dataset'] === 'place') {
             $query->addSelect(
                 'm_balance.place_element_id as dataset_id',
                 'm_place_element.description AS dataset_description'
             );
-            $query->groupBy('m_balance.place_element_id');
+            $query->groupBy('m_balance.place_element_id', 'm_place_element.description');
         } else if ($params['dataset'] === 'day') {
             $query->addSelect(
                 'm_balance.date as dataset_id',
