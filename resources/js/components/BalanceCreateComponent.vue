@@ -49,6 +49,14 @@
                         <input type="checkbox" class="col-sm-1 form-control" id="date_checkbox" v-model="balanceLeave.date">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <div v-if="response.isReturned">
+                        <div v-if="response.isSucceeded">
+                            Succeeded!
+                        </div>
+                        <div v-else>
+                            {{ response.returnMessage }}
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -70,7 +78,12 @@
                 },
                 kindElements: [],
                 purposeElements: [],
-                placeElements: []
+                placeElements: [],
+                response: {
+                    isReturned: false,
+                    isSucceeded: false,
+                    returnMessage: ''
+                }
             }
         },
         methods: {
@@ -113,11 +126,16 @@
                 }
             },
             submit() {
+                this.response.isReturned = false;
                 axios.post('/api/balances', this.balance)
                     .then((res) => {
-                        if (res.status === 200) {
-                            this.flushBalance();
-                        }
+                        this.response.isReturned = true;
+                        this.response.isSucceeded = true;
+                        this.flushBalance();
+                    }).catch((error) => {
+                        this.response.isReturned = true;
+                        this.response.isSucceeded = false;
+                        this.response.returnMessage = error.response.data.message;
                     });
             }
         },
