@@ -49,12 +49,14 @@
                         <input type="checkbox" class="col-sm-1 form-control" id="date_checkbox" v-model="balanceLeave.date">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <div v-if="response.isReturned">
-                        <div v-if="response.isSucceeded">
-                            Succeeded!
-                        </div>
-                        <div v-else>
-                            {{ response.returnMessage }}
+                    <div class="form-group row">
+                        <div v-if="response.isReturned">
+                            <div v-if="response.isSucceeded" class="alert alert-success">
+                                Succeeded!
+                            </div>
+                            <div v-else class="alert alert-danger">
+                                {{ response.returnMessage }}
+                            </div>
                         </div>
                     </div>
                 </form>
