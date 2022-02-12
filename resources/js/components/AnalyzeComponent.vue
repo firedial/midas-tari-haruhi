@@ -45,12 +45,14 @@
 
         <my-bar v-if="isAggregationGraph" v-bind:chartData="chartData"></my-bar>
         <balance-table v-if="isBalanceTable" :balances="balances" />
+        <aggregation-table v-if="isAggregationTable" :data="chartData" />
     </div>
 </template>
 
 <script>
     import MyBar from './BarComponent'
     import BalanceTable from './commonComponents/BalanceTableComponent'
+    import AggregationTable from './commonComponents/AggregationTableComponent'
 
     export default {
         data: function () {
@@ -94,13 +96,13 @@
                 return q.join('&');
             },
             isBalanceTable: function () {
-                return this.label === 'none';
+                return this.queries.label === 'none';
             },
             isAggregationTable: function () {
-                return this.label !== 'none' && this.dataForm === 'table';
+                return this.queries.label !== 'none' && this.dataForm === 'table';
             },
             isAggregationGraph: function () {
-                return this.label !== 'none' && this.dataForm === 'graph';
+                return this.queries.label !== 'none' && this.dataForm === 'graph';
             }
         },
         methods: {
@@ -143,7 +145,8 @@
         },
         components: {
             'my-bar': MyBar,
-            'balance-table': BalanceTable
+            'balance-table': BalanceTable,
+            'aggregation-table': AggregationTable
         }
     }
 </script>
