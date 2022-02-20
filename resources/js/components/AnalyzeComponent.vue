@@ -40,8 +40,6 @@
             </div>
         </div>
         <button v-on:click="getChartData">display</button>
-        {{ queries }}
-        {{ queryParam }}
 
         <my-bar v-if="isAggregationGraph" v-bind:chartData="chartData"></my-bar>
         <balance-table v-if="isBalanceTable" :balances="balances" />
@@ -62,8 +60,8 @@
                 purposeElements: [],
                 placeElements: [],
                 chartData: {},
-                canUseLabels: ['none', 'kind', 'purpose', 'place', 'day', 'all'],
-                canUseDatasets: ['none', 'kind', 'purpose', 'place', 'day'],
+                canUseLabels: ['none', 'kind', 'purpose', 'place', 'day', 'week', 'month', 'year', 'fiscal_year', 'all'],
+                canUseDatasets: ['none', 'kind', 'purpose', 'place', 'day', 'week', 'month', 'year', 'fiscal_year'],
                 dataForm: 'table',
                 queries: {
                     moveIgnore: true,

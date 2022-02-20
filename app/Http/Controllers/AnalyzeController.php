@@ -34,9 +34,7 @@ class AnalyzeController extends Controller
         $params['label'] = $request->input('label');
         $params['dataset'] = $request->input('dataset');
 
-        $groupByValue = array(null, 'all', 'kind', 'purpose', 'place', 'day');
-        // @todo 日付の集約期間は後で実装する
-        // $groupByValue = array(null, 'all', 'kind', 'purpose', 'place', 'day', 'week', 'month', 'year', 'fiscal_year');
+        $groupByValue = array(null, 'all', 'kind', 'purpose', 'place', 'day', 'week', 'month', 'year', 'fiscal_year');
         if (!in_array($params['label'], $groupByValue, true)) {
             // @todo 例外処理を投げる
             return array();

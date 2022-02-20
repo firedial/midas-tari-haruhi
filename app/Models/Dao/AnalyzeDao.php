@@ -64,12 +64,35 @@ class AnalyzeDao
                 'm_balance.date as label_description'
             );
             $query->groupBy('m_balance.date');
+        } else if ($params['label'] === 'week') {
+            $query->addSelect(
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-%U") as label_id'),
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-%U") as label_description')
+            );
+            $query->groupBy('label_id', 'label_description');
+        } else if ($params['label'] === 'month') {
+            $query->addSelect(
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-%m-01") as label_id'),
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-%m-01") as label_description')
+            );
+            $query->groupBy('label_id', 'label_description');
+        } else if ($params['label'] === 'year') {
+            $query->addSelect(
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-01-01") as label_id'),
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-01-01") as label_description')
+            );
+            $query->groupBy('label_id', 'label_description');
+        } else if ($params['label'] === 'fiscal_year') {
+            $query->addSelect(
+                DB::raw('DATE_FORMAT(m_balance.date - INTERVAL 3 MONTH, "%Y-04-01") as label_id'),
+                DB::raw('DATE_FORMAT(m_balance.date - INTERVAL 3 MONTH, "%Y-04-01") as label_description')
+            );
+            $query->groupBy('label_id', 'label_description');
         } else if ($params['label'] === 'all') {
             $query->addSelect(
                 DB::raw('1 as label_id'),
                 DB::raw('"data" as label_description')
             );
-            $query->groupBy('m_balance.date');
         }
 
         if ($params['dataset'] === 'kind') {
@@ -97,6 +120,30 @@ class AnalyzeDao
                 'm_balance.date as dataset_description'
             );
             $query->groupBy('m_balance.date');
+        } else if ($params['dataset'] === 'week') {
+            $query->addSelect(
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-%U") as dataset_id'),
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-%U") as dataset_description')
+            );
+            $query->groupBy('dataset_id', 'dataset_description');
+        } else if ($params['dataset'] === 'month') {
+            $query->addSelect(
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-%m-01") as dataset_id'),
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-%m-01") as dataset_description')
+            );
+            $query->groupBy('dataset_id', 'dataset_description');
+        } else if ($params['dataset'] === 'year') {
+            $query->addSelect(
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-01-01") as dataset_id'),
+                DB::raw('DATE_FORMAT(m_balance.date, "%Y-01-01") as dataset_description')
+            );
+            $query->groupBy('dataset_id', 'dataset_description');
+        } else if ($params['dataset'] === 'fiscal_year') {
+            $query->addSelect(
+                DB::raw('DATE_FORMAT(m_balance.date - INTERVAL 3 MONTH, "%Y-04-01") as dataset_id'),
+                DB::raw('DATE_FORMAT(m_balance.date - INTERVAL 3 MONTH, "%Y-04-01") as dataset_description')
+            );
+            $query->groupBy('dataset_id', 'dataset_description');
         } else if ($params['dataset'] === 'all') {
             $query->addSelect(
                 DB::raw('1 as dataset_id'),
