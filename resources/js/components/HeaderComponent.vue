@@ -22,9 +22,6 @@
                     <router-link v-bind:to="{name: 'move.create', params: {attributeName: 'places'}}">
                         <button class="btn btn-success">Place Move Add</button>
                     </router-link>
-                    <router-link v-bind:to="{name: 'analyze'}">
-                        <button class="btn btn-light">Analyze</button>
-                    </router-link>
                 </div>
             </nav>
         </div>
