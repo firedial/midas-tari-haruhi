@@ -9,7 +9,7 @@ class MovePurposeController extends Controller
 {
     public function index()
     {
-        return MoveDao::getAllMoves('purpose');
+        return MoveDao::getMoves('purpose');
     }
 
     public function show(Int $id)

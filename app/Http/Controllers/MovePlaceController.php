@@ -9,7 +9,7 @@ class MovePlaceController extends Controller
 {
     public function index()
     {
-        return MoveDao::getAllMoves('place');
+        return MoveDao::getMoves('place');
     }
 
     public function show(Int $id)

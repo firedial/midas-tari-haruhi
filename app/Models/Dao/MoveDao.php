@@ -14,13 +14,15 @@ use App\Models\PlaceElement;
 class MoveDao
 {
     /**
-     * 全ての移動処理のレコードを取得する
+     * 移動処理のレコードを取得する
+     * 
+     * 降順で20件取得する
      * 
      * @param String $attributeName 移動処理を取得したい属性名
      * @return array 移動処理のレコード
      */
 
-    public static function getAllMoves(String $attributeName)
+    public static function getMoves(String $attributeName)
     {
         $moveAttributeConditionColumn = '';
         $moveAttributeConditionId = '';
@@ -53,6 +55,8 @@ class MoveDao
             ->where('before.kind_element_id', KindElement::MOVE_ID)
             ->where('before.amount', '>', 0)
             ->where($moveAttributeConditionColumn, $moveAttributeConditionId)
+            ->limit(20)
+            ->orderby('id', 'desc')
             ->get();
     }
 
