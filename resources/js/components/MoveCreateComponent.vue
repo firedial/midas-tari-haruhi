@@ -53,7 +53,7 @@
         },
         methods: {
             submit() {
-                axios.post('/api/moves_' + this.attributeName, this.move)
+                axios.post('/api/moves/' + this.attributeName, this.move)
                     .then((res) => {
                         this.$router.push({name: 'move.list'});
                     });

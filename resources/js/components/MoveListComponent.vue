@@ -43,7 +43,7 @@
         },
         methods: {
             getMoves() {
-                axios.get('/api/moves_' + this.attributeName)
+                axios.get('/api/moves/' + this.attributeName)
                     .then((res) => {
                         this.moves = res.data;
                     });

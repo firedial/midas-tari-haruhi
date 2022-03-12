@@ -59,7 +59,7 @@
         },
         methods: {
             getMove() {
-                axios.get('/api/moves_' + this.attributeName + '/' + this.moveId)
+                axios.get('/api/moves/' + this.attributeName + '/' + this.moveId)
                     .then((res) => {
                         this.move = res.data;
                     });
@@ -76,14 +76,14 @@
                     });
             },
             submit() {
-                axios.put('/api/moves_' + this.attributeName + '/' + this.moveId, this.move)
+                axios.put('/api/moves/' + this.attributeName + '/' + this.moveId, this.move)
                     .then((res) => {
                         this.$router.push({name: 'move.list', params: {attributeName: this.attributeName}})
                     });
             },
             deleteMove(id) {
                 if(confirm('本当に削除しますか？')){
-                    axios.delete('/api/moves_' + this.attributeName + '/' + id)
+                    axios.delete('/api/moves/' + this.attributeName + '/' + id)
                         .then((res) => {
                             this.$router.push({name: 'move.list', params: {attributeName: this.attributeName}})
                         });
