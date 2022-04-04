@@ -25,7 +25,7 @@ Route::put('/balances/{balance}', 'App\Http\Controllers\BalanceController@update
 Route::delete('/balances/{balance}', 'App\Http\Controllers\BalanceController@destroy');
 
 Route::get('/moves/{attribute_name}', 'App\Http\Controllers\MoveController@index');
-Route::post('/moves{attribute_name}', 'App\Http\Controllers\MoveController@store');
+Route::post('/moves/{attribute_name}', 'App\Http\Controllers\MoveController@store');
 Route::get('/moves/{attribute_name}/{move_id}', 'App\Http\Controllers\MoveController@show');
 Route::put('/moves/{attribute_name}/{move_id}', 'App\Http\Controllers\MoveController@update');
 Route::delete('/moves/{attribute_name}/{move_id}', 'App\Http\Controllers\MoveController@destroy');

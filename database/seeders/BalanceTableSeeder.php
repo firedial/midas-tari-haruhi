@@ -26,7 +26,7 @@ class BalanceTableSeeder extends Seeder
         }
         for ($i = 2; $i <= 10; $i++) {
             Balance::create([
-                'amount' => $i * $i * $i,
+                'amount' => (-1) * $i * $i * $i,
                 'item' => 'move' . $i,
                 'kind_element_id' => 1,
                 'purpose_element_id' => 1,
@@ -34,7 +34,7 @@ class BalanceTableSeeder extends Seeder
                 'date' => '2021-08-' . (10 + $i),
             ]);
             Balance::create([
-                'amount' => (-1) * $i * $i * $i,
+                'amount' => $i * $i * $i,
                 'item' => 'move' . $i,
                 'kind_element_id' => 1,
                 'purpose_element_id' => 1,
@@ -43,7 +43,7 @@ class BalanceTableSeeder extends Seeder
             ]);
 
             Balance::create([
-                'amount' => $i * $i * $i,
+                'amount' => (-1) * $i * $i * $i,
                 'item' => 'move' . $i,
                 'kind_element_id' => 1,
                 'purpose_element_id' => $i,
@@ -51,7 +51,7 @@ class BalanceTableSeeder extends Seeder
                 'date' => '2021-08-' . (10 + $i),
             ]);
             Balance::create([
-                'amount' => (-1) * $i * $i * $i,
+                'amount' => $i * $i * $i,
                 'item' => 'move' . $i,
                 'kind_element_id' => 1,
                 'purpose_element_id' => $i + 1,

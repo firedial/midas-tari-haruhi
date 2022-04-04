@@ -41,7 +41,7 @@ class MoveDao
         return DB::table('m_balance as before')
             ->select(
                 'before.id AS id',
-                'before.amount AS amount',
+                'after.amount AS amount',
                 'before.item AS item',
                 'before.' . $attributeName . '_element_id AS before_id',
                 'after.' . $attributeName . '_element_id AS after_id',
@@ -53,7 +53,7 @@ class MoveDao
             ->join('m_' . $attributeName . '_element as before_attribute_element', 'before_attribute_element.id', '=', 'before.' . $attributeName . '_element_id')
             ->join('m_' . $attributeName . '_element as after_attribute_element', 'after_attribute_element.id', '=', 'after.' . $attributeName . '_element_id')
             ->where('before.kind_element_id', KindElement::MOVE_ID)
-            ->where('before.amount', '>', 0)
+            ->where('before.amount', '<', 0)
             ->where($moveAttributeConditionColumn, $moveAttributeConditionId)
             ->limit(20)
             ->orderby('id', 'desc')
@@ -72,7 +72,7 @@ class MoveDao
         $list = DB::table('m_balance as before')
             ->select(
                 'before.id AS id',
-                'before.amount AS amount',
+                'after.amount AS amount',
                 'before.item AS item',
                 'before.' . $attributeName . '_element_id AS before_id',
                 'after.' . $attributeName . '_element_id AS after_id',
@@ -84,7 +84,7 @@ class MoveDao
             ->join('m_' . $attributeName . '_element as before_attribute_element', 'before_attribute_element.id', '=', 'before.' . $attributeName . '_element_id')
             ->join('m_' . $attributeName . '_element as after_attribute_element', 'after_attribute_element.id', '=', 'after.' . $attributeName . '_element_id')
             ->where('before.kind_element_id', KindElement::MOVE_ID)
-            ->where('before.amount', '>', 0)
+            ->where('before.amount', '<', 0)
             ->where('before.id', $id)
             ->get();
 
@@ -107,14 +107,14 @@ class MoveDao
     {
         $before = array(
             'item' => $request['item'],
-            'amount' => $request['amount'],
+            'amount' => (-1) * $request['amount'],
             'kind_element_id' => KindElement::MOVE_ID,
             'date' => $request['date']
         );
 
         $after = array(
             'item' => $request['item'],
-            'amount' => (-1) * $request['amount'],
+            'amount' => $request['amount'],
             'kind_element_id' => KindElement::MOVE_ID,
             'date' => $request['date']
         );
@@ -155,13 +155,13 @@ class MoveDao
     {
         $before = array(
             'item' => $request['item'],
-            'amount' => $request['amount'],
+            'amount' => (-1) * $request['amount'],
             'date' => $request['date']
         );
 
         $after = array(
             'item' => $request['item'],
-            'amount' => (-1) * $request['amount'],
+            'amount' => $request['amount'],
             'date' => $request['date']
         );
 
