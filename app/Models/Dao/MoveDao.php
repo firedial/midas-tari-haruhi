@@ -138,6 +138,42 @@ class MoveDao
         return DB::table('m_balance')->insert([$before, $after]);
     }
 
+    // $request の型が扱いづらいので連想配列で扱えるようにコピー
+    public static function insertMoveByArray(String $attributeName, Array $request)
+    {
+        $before = array(
+            'item' => $request['item'],
+            'amount' => (-1) * $request['amount'],
+            'kind_element_id' => KindElement::MOVE_ID,
+            'date' => $request['date']
+        );
+
+        $after = array(
+            'item' => $request['item'],
+            'amount' => $request['amount'],
+            'kind_element_id' => KindElement::MOVE_ID,
+            'date' => $request['date']
+        );
+
+        if ($attributeName === 'purpose') {
+            $before['purpose_element_id'] = $request['before_id'];
+            $before['place_element_id'] = PlaceElement::MOVE_ID;
+            $after['purpose_element_id'] = $request['after_id'];
+            $after['place_element_id'] = PlaceElement::MOVE_ID;
+        } else if ($attributeName === 'place') {
+            $before['purpose_element_id'] = PurposeElement::MOVE_ID;
+            $before['place_element_id'] = $request['before_id'];
+            $after['purpose_element_id'] = PurposeElement::MOVE_ID;
+            $after['place_element_id'] = $request['after_id'];
+        } else {
+            // ここにはこない想定
+            // exception 吐いたほうがいい
+            // もっと上位で処理しても良さそう
+        }
+
+        return DB::table('m_balance')->insert([$before, $after]);
+    }
+
     /**
      * 移動処理の更新
      * 
