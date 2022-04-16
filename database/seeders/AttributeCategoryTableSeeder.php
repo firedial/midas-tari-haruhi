@@ -17,31 +17,51 @@ class AttributeCategoryTableSeeder extends Seeder
     public function run()
     {
         KindCategory::create([
-            'name' => 'kind_c_move_none',
-            'description' => 'kind_c_move_none',
+            'name' => 'Move',
+            'description' => '移動',
         ]);
-        PurposeCategory::create([
-            'name' => 'purpose_c_move_none',
-            'description' => 'purpose_c_move_none',
+        KindCategory::create([
+            'name' => 'Food',
+            'description' => '食費',
         ]);
-        PlaceCategory::create([
-            'name' => 'place_c_move_none',
-            'description' => 'place_c_move_none',
+        KindCategory::create([
+            'name' => 'Utility',
+            'description' => '光熱費',
+        ]);
+        KindCategory::create([
+            'name' => 'Transportation',
+            'description' => '交通費',
         ]);
 
-        for ($i = 2; $i <= 100; $i++) {
-            KindCategory::create([
-                'name' => 'kind_c_name' . $i,
-                'description' => 'kind_c_desc' . $i,
-            ]);
-            PurposeCategory::create([
-                'name' => 'purpose_c_name' . $i,
-                'description' => 'purpose_c_desc' . $i,
-            ]);
-            PlaceCategory::create([
-                'name' => 'place_c_name' . $i,
-                'description' => 'place_c_desc' . $i,
-            ]);
-        }
+        PurposeCategory::create([
+            'name' => 'Move',
+            'description' => '移動',
+        ]);
+        PurposeCategory::create([
+            'name' => 'Food',
+            'description' => '食費',
+        ]);
+        PurposeCategory::create([
+            'name' => 'Utility',
+            'description' => '光熱費',
+        ]);
+        PurposeCategory::create([
+            'name' => 'Travel',
+            'description' => '旅行',
+        ]);
+
+        PlaceCategory::create([
+            'name' => 'Move',
+            'description' => '移動',
+        ]);
+        PlaceCategory::create([
+            'name' => 'Main',
+            'description' => 'メイン',
+        ]);
+        PlaceCategory::create([
+            'name' => 'Bank',
+            'description' => '銀行',
+        ]);
+
     }
 }
