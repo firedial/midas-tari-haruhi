@@ -1,7 +1,6 @@
 import VueRouter from 'vue-router';
 import HeaderComponent from "./components/HeaderComponent";
 import BalanceListComponent from "./components/BalanceListComponent";
-// import BalanceTableComponent from "./components/BalanceTableComponent";
 import BalanceCreateComponent from "./components/BalanceCreateComponent";
 import BalanceEditComponent from "./components/BalanceEditComponent";
 import BalanceShowComponent from "./components/BalanceShowComponent";
@@ -9,6 +8,8 @@ import MoveListComponent from "./components/MoveListComponent";
 import MoveCreateComponent from "./components/MoveCreateComponent";
 import MoveEditComponent from "./components/MoveEditComponent";
 import MoveShowComponent from "./components/MoveShowComponent";
+import SalaryCreateComponent from "./components/SalaryCreateComponent";
+import BonusCreateComponent from "./components/BonusCreateComponent";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -71,6 +72,16 @@ const router = new VueRouter({
             name: 'move.show',
             component: MoveShowComponent,
             props: true
+        },
+        {
+            path: '/salary/create',
+            name: 'salary.create',
+            component: SalaryCreateComponent
+        },
+        {
+            path: '/bonus/create',
+            name: 'bonus.create',
+            component: BonusCreateComponent
         },
     ]
 });
