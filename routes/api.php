@@ -35,3 +35,5 @@ Route::get('/attribute_elements/{element_name}', 'App\Http\Controllers\Attribute
 Route::post('/salary', 'App\Http\Controllers\SalaryController@store');
 Route::post('/bonus', 'App\Http\Controllers\BonusController@store');
 
+Route::post('/monthly', 'App\Http\Controllers\MonthlyController@store');
+

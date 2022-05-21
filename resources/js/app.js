@@ -10,6 +10,7 @@ import MoveEditComponent from "./components/MoveEditComponent";
 import MoveShowComponent from "./components/MoveShowComponent";
 import SalaryCreateComponent from "./components/SalaryCreateComponent";
 import BonusCreateComponent from "./components/BonusCreateComponent";
+import MonthlyCreateComponent from "./components/MonthlyCreateComponent";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -82,6 +83,11 @@ const router = new VueRouter({
             path: '/bonus/create',
             name: 'bonus.create',
             component: BonusCreateComponent
+        },
+        {
+            path: '/monthly/create',
+            name: 'monthly.create',
+            component: MonthlyCreateComponent
         },
     ]
 });
