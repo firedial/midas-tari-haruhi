@@ -30,7 +30,7 @@
     export default {
         data: function () {
             return {
-                items: ['gas', 'water', 'net'],
+                items: ['house_rent', 'gas', 'water', 'elect', 'net'],
                 data: {},
                 response: {
                     isReturned: false,
