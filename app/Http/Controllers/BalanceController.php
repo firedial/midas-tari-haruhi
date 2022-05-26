@@ -56,7 +56,7 @@ class BalanceController extends Controller
         return $balance;
     }
 
-    public function destroy(Balance $balance): boolean
+    public function destroy(Balance $balance): bool
     {
         return BalanceService::deleteBalance($balance);
     }
